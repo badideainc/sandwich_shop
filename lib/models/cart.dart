@@ -13,7 +13,16 @@ class Cart {
 
   int get count => sandwiches.length;
 
-  void add(Sandwich sandwich) => sandwiches.add(sandwich);
+  void add(Sandwich sandwich, {int quantity = 1}) {
+    if (quantity <= 0) return;
+    for (var i = 0; i < quantity; i++) {
+      sandwiches.add(Sandwich(
+        type: sandwich.type,
+        isFootlong: sandwich.isFootlong,
+        breadType: sandwich.breadType,
+      ));
+    }
+  }
 
   bool remove(Sandwich sandwich) => sandwiches.remove(sandwich);
 
