@@ -41,6 +41,8 @@ class _OrderScreenState extends State<OrderScreen> {
   BreadType _selectedBreadType = BreadType.white;
   int _quantity = 1;
 
+  String? confirmationMessage = '';
+
   @override
   void initState() {
     super.initState();
@@ -73,10 +75,10 @@ class _OrderScreenState extends State<OrderScreen> {
       } else {
         sizeText = 'six-inch';
       }
-      String confirmationMessage =
+      confirmationMessage =
           'Added $_quantity $sizeText ${sandwich.name} sandwich(es) on ${_selectedBreadType.name} bread to cart';
 
-      debugPrint(confirmationMessage);
+      //debugPrint(confirmationMessage);
     }
   }
 
@@ -247,6 +249,8 @@ class _OrderScreenState extends State<OrderScreen> {
                 label: 'Add to Cart',
                 backgroundColor: Colors.green,
               ),
+              Text(confirmationMessage ?? '',
+                  style: normalText, textAlign: TextAlign.center),
               const SizedBox(height: 20),
             ],
           ),
