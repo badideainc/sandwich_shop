@@ -330,3 +330,16 @@ class OrderItemDisplay extends StatelessWidget {
     );
   }
 }
+
+class CartSummaryDisplay extends StatelessWidget {
+  final Cart cart;
+
+  const CartSummaryDisplay({super.key, required this.cart});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [],
+    );
+  }
+}
