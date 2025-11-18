@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sandwich_shop/main.dart';
+import 'package:sandwich_shop/models/sandwich.dart';
+import 'package:sandwich_shop/models/cart.dart';
 
 void main() {
   group('App', () {
@@ -174,6 +176,43 @@ void main() {
       expect(
           find.text('1 wholemeal footlong sandwich(es): 🥪'), findsOneWidget);
       expect(find.text('Note: Lots of lettuce'), findsOneWidget);
+    });
+  });
+  //CartSummaryDisplay
+  group('CartSummaryDisplay', () {
+    testWidgets('shows empty cart values', (WidgetTester tester) async {
+      final cart = Cart();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(body: CartSummaryDisplay(cart: cart)),
+        ),
+      );
+
+      expect(find.byKey(const Key('cart_items_text')), findsOneWidget);
+      expect(find.byKey(const Key('cart_total_text')), findsOneWidget);
+    });
+    testWidgets('shows values when cart has an item',
+        (WidgetTester tester) async {
+      final cart = Cart();
+      cart.add(
+        Sandwich(
+            type: SandwichType.veggieDelight,
+            isFootlong: true,
+            breadType: BreadType.white),
+        quantity: 1,
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(body: CartSummaryDisplay(cart: cart)),
+        ),
+      );
+
+      // verify count and formatted total from cart
+      expect(find.text('Total items in cart: ${cart.count}'), findsOneWidget);
+      expect(find.text('Total price: \$${cart.total.toStringAsFixed(2)}'),
+          findsOneWidget);
     });
   });
 }
