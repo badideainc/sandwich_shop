@@ -344,10 +344,12 @@ class CartSummaryDisplay extends StatelessWidget {
       children: [
         Text(
           'Total items in cart: ${cart.count}',
+          key: const Key('cart_items_text'),
           style: heading2,
         ),
         Text(
           'Total price: \$${cart.total.toStringAsFixed(2)}',
+          key: const Key('cart_total_text'),
           style: heading2,
         ),
       ],
