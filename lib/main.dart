@@ -252,6 +252,8 @@ class _OrderScreenState extends State<OrderScreen> {
               Text(confirmationMessage ?? '',
                   style: normalText, textAlign: TextAlign.center),
               const SizedBox(height: 20),
+              CartSummaryDisplay(cart: _cart),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -339,7 +341,16 @@ class CartSummaryDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [],
+      children: [
+        Text(
+          'Total items in cart: ${cart.count}',
+          style: heading2,
+        ),
+        Text(
+          'Total price: \$${cart.total.toStringAsFixed(2)}',
+          style: heading2,
+        ),
+      ],
     );
   }
 }
