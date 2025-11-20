@@ -78,6 +78,16 @@ class _OrderScreenState extends State<OrderScreen> {
       confirmationMessage =
           'Added $_quantity $sizeText ${sandwich.name} sandwich(es) on ${_selectedBreadType.name} bread to cart';
 
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(confirmationMessage!),
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          ),
+        );
       //debugPrint(confirmationMessage);
     }
   }
@@ -249,8 +259,6 @@ class _OrderScreenState extends State<OrderScreen> {
                 label: 'Add to Cart',
                 backgroundColor: Colors.green,
               ),
-              Text(confirmationMessage ?? '',
-                  style: normalText, textAlign: TextAlign.center),
               const SizedBox(height: 20),
               CartSummaryDisplay(cart: _cart),
               const SizedBox(height: 20),
