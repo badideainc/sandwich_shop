@@ -1,4 +1,3 @@
-
 enum BreadType { white, wheat, wholemeal }
 
 enum SandwichType {
@@ -41,15 +40,5 @@ class Sandwich {
       sizeString = 'six_inch';
     }
     return 'assets/images/${typeString}_$sizeString.png';
-  }
-
-  factory Sandwich.fromJson(Map<String, dynamic> json) {
-    return Sandwich(
-      type: SandwichType.values.firstWhere((e) => e.name == json['type'],
-          orElse: () => SandwichType.veggieDelight),
-      isFootlong: json['isFootlong'] ?? true,
-      breadType: BreadType.values.firstWhere((e) => e.name == json['breadType'],
-          orElse: () => BreadType.white),
-    );
   }
 }
