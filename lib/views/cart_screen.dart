@@ -60,19 +60,55 @@ class _CartScreenState extends State<CartScreen> {
             children: [
               const SizedBox(height: 20),
               for (MapEntry<Sandwich, int> entry in widget.cart.items.entries)
-                Column(
-                  children: [
-                    Text(entry.key.name, style: heading2),
-                    Text(
-                      '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
-                      style: normalText,
+                Card(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(entry.key.name, style: heading2),
+                              Text(
+                                '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
+                                style: normalText,
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
+                                style: normalText,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  widget.cart.remove(entry.key);
+                                });
+                              },
+                              icon: const Icon(Icons.remove_circle_outline),
+                            ),
+                            Text('${entry.value}', style: heading2),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  widget.cart.add(entry.key);
+                                });
+                              },
+                              icon: const Icon(Icons.add_circle_outline),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
-                      style: normalText,
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                  ),
                 ),
               Text(
                 'Total: £${widget.cart.totalPrice.toStringAsFixed(2)}',
