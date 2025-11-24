@@ -104,6 +104,16 @@ class _CartScreenState extends State<CartScreen> {
                               },
                               icon: const Icon(Icons.add_circle_outline),
                             ),
+                            const SizedBox(width: 8),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  widget.cart.setQuantity(entry.key, 0);
+                                });
+                              },
+                              icon: const Icon(Icons.delete_outline),
+                              tooltip: 'Remove item',
+                            ),
                           ],
                         ),
                       ],
