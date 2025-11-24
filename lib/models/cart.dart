@@ -8,6 +8,8 @@ class Cart {
   Map<Sandwich, int> get items => Map.unmodifiable(_items);
 
   void add(Sandwich sandwich, {int quantity = 1}) {
+    if (quantity <= 0) return;
+
     if (_items.containsKey(sandwich)) {
       _items[sandwich] = _items[sandwich]! + quantity;
     } else {
@@ -16,6 +18,8 @@ class Cart {
   }
 
   void remove(Sandwich sandwich, {int quantity = 1}) {
+    if (quantity <= 0) return;
+
     if (_items.containsKey(sandwich)) {
       final currentQty = _items[sandwich]!;
       if (currentQty > quantity) {
@@ -23,6 +27,16 @@ class Cart {
       } else {
         _items.remove(sandwich);
       }
+    }
+  }
+
+  /// Set the exact quantity for [sandwich].
+  /// If [quantity] is less than 1 the item is removed from the cart.
+  void setQuantity(Sandwich sandwich, int quantity) {
+    if (quantity <= 0) {
+      _items.remove(sandwich);
+    } else {
+      _items[sandwich] = quantity;
     }
   }
 
