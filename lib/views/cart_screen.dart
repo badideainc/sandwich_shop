@@ -19,8 +19,26 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: Column(
         children: [
-          // Item list will go here
-          // Total price will go here
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.cart.count,
+              itemBuilder: (context, index) {
+                final sandwich = widget.cart.sandwiches[index];
+                return ListTile(
+                  title: Text(sandwich.name),
+                  subtitle: Text('${sandwich.size} ${sandwich.breadType.name} Bread'),
+                );
+              },
+            ),
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Total: \£0.00', // Placeholder for total price
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );
