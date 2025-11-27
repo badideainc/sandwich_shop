@@ -32,11 +32,11 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           const Divider(),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Total: \£0.00', // Placeholder for total price
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'Total: £${widget.cart.total.toStringAsFixed(2)}',// Placeholder for total price
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
         ],
