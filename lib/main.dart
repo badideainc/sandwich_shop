@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/models/cart.dart';
+import 'package:sandwich_shop/views/cart_screen.dart';
 
 //enum BreadType { white, wheat, wholemeal }
 
@@ -97,6 +98,15 @@ class _OrderScreenState extends State<OrderScreen> {
       return _addToCart;
     }
     return null;
+  }
+
+  void _navigateToCartView() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => CartScreen(cart: _cart),
+      ),
+    );
   }
 
   List<DropdownMenuEntry<SandwichType>> _buildSandwichTypeEntries() {
@@ -258,6 +268,13 @@ class _OrderScreenState extends State<OrderScreen> {
                 icon: Icons.add_shopping_cart,
                 label: 'Add to Cart',
                 backgroundColor: Colors.green,
+              ),
+              const SizedBox(height: 20),
+              StyledButton(
+                onPressed: _navigateToCartView,
+                icon: Icons.shopping_cart,
+                label: 'View Cart',
+                backgroundColor: Colors.blue,
               ),
               const SizedBox(height: 20),
               CartSummaryDisplay(cart: _cart),
