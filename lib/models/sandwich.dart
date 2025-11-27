@@ -32,6 +32,14 @@ class Sandwich {
     }
   }
 
+  String get size {
+    if (isFootlong) {
+      return 'Footlong';
+    }
+
+    return 'Six-inch';
+  }
+
   String get image {
     String typeString = type.name;
     String sizeString = '';
