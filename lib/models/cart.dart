@@ -1,16 +1,17 @@
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/repositories/pricing_repository.dart';
-import 'package:sandwich_shop/services/sandwich_json_parser.dart';
 
 class Cart {
   List<Sandwich> sandwiches = [];
   final PricingRepository _pricingRepository = PricingRepository();
 
   // Total price computed via the price repository
-  double get total => _pricingRepository.calculatePrice(
-        quantity: count,
-        isFootlong: sandwiches.isNotEmpty ? sandwiches[0].isFootlong : false,
-      );
+  double get total => sandwiches.fold(
+      0.0,
+      (total, sandwich) =>
+          total +
+          _pricingRepository.calculatePrice(
+              quantity: 1, isFootlong: sandwich.isFootlong));
 
   int get count => sandwiches.length;
 
