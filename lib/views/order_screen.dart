@@ -232,6 +232,13 @@ class _OrderScreenState extends State<OrderScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
+              StyledButton(
+                onPressed: () => Navigator.pushNamed(context, '/login'),
+                icon: Icons.account_circle,
+                label: 'Account / Sign Up',
+                backgroundColor: Colors.purple,
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
