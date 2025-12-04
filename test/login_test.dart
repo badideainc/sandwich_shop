@@ -3,15 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sandwich_shop/views/login_screen.dart';
 
 void main() {
-  // Simple app wrapper for tests that doesn't declare a '/' route.
   Widget makeTestable({required Widget child}) {
     return MaterialApp(
       home: child,
     );
   }
 
-  // App wrapper used for navigation tests: uses named routes and sets
-  // '/login' as the initial route so pushing/replacing to '/' works.
   Widget makeTestableWithRoutes({required Widget loginScreen}) {
     return MaterialApp(
       initialRoute: '/login',
