@@ -1,79 +1,43 @@
-LLM Prompt for Implementing Cart Modification Features in a Flutter Sandwich Shop App
+## Task: Add a simple Sign-up / Login UI (UI + routing only)
 
-I am building a Flutter app for a sandwich shop. The app has two main pages:
+This prompt instructs an LLM to add a simple Sign-up / Login screen to the Sandwich Shop Flutter app. The deliverable is UI and navigation wiring only — do NOT implement any real authentication, persistence, or external services.
 
-    Order Screen: Users select sandwiches and add them to their cart.
-    Cart Screen: Users view the items in their cart and see the total price.
+Requirements
+- Purpose: Create a lightweight sign-up/login page that collects email and password and navigates to the app homepage when the user taps the primary button.
+- No authentication: Do not store credentials, call auth APIs, or write to local storage.
+- Keep changes limited and focused: add a new view file and update routes and the order screen to navigate to it.
 
-Relevant Models and Repository
+Files and routes (exact file paths to use)
+- New screen file: `lib/views/login_screen.dart` (implement the UI here).
+- Register route `'/login'` in `lib/main.dart` (add to the app's routes or onGenerateRoute map).
+- Trigger navigation from `lib/views/order_screen.dart` by adding a bottom button that calls `Navigator.pushNamed(context, '/login')`.
 
-    Sandwich (lib/models/sandwich.dart):
-        Has SandwichType, BreadType, and a bool isFootlong for size.
-        Each sandwich has a name and an image getter for display.
-    Cart (lib/models/cart.dart):
-        Stores a map of Sandwich to quantity.
-        Methods: add(Sandwich, {quantity}), remove(Sandwich, {quantity}), clear(), getQuantity(Sandwich).
-        totalPrice is calculated using the PricingRepository.
-        If removing more than the current quantity, the item is removed entirely.
-    PricingRepository (lib/repositories/pricing_repository.dart):
-        calculatePrice({required int quantity, required bool isFootlong}) returns the price for a sandwich based on size and quantity.
+UI & Behavior Details
+- Screen scaffold
+	- Use a `Scaffold` with `SafeArea` and a `SingleChildScrollView` body to avoid keyboard overflow.
+	- Provide a simple, centred header area with the app logo (use `assets/images/logo.png` if available, otherwise `FlutterLogo` / `Icon(Icons.fastfood)` placeholder).
+- Form
+	- Use `Form` + `GlobalKey<FormState>`.
+	- Fields: `TextFormField` for Email (`keyboardType: TextInputType.emailAddress`) and `TextFormField` for Password (`obscureText: true`).
+	- Add minimal validation (non-empty; email contains `@` is enough).
+	- Use `TextEditingController`s and dispose them in `StatefulWidget`'s `dispose()`.
+- Actions
+	- Primary button: `ElevatedButton` labelled `Sign Up` (or `Create Account`). When tapped, if the form validates, navigate to the homepage using `Navigator.pushReplacementNamed(context, '/')` (or whatever main route the app uses).
+	- Secondary action: optional `TextButton` for "Already have an account? Sign in" — should be non-functional
 
-Current UI
+Styling & Consistency
+- Prefer existing project styles if present (e.g., `lib/views/app_styles.dart`); otherwise use Material defaults.
+- Keep layout responsive and simple — padding, spacing, and full-width primary button.
 
-    The cart page lists each sandwich, its size, bread type, quantity, and price.
-    The total price is shown at the bottom.
-    There is a "Back to Order" button.
+Acceptance criteria (how to verify)
+- From the running app's order screen, tapping the new bottom "Account / Sign Up" button opens `LoginScreen` at `'/login'`.
+- `LoginScreen` displays logo, email and password fields, and a `Sign Up` button.
+- Tapping `Sign Up` (with valid input) navigates to the app homepage (route `/`), and no credentials are saved or sent.
 
-Features to Implement
-1. Change Quantity of an Item
+Implementation hints for the LLM
+- Use `Navigator.pushNamed(context, '/login')` to open the login screen.
+- Use `Navigator.pushReplacementNamed(context, '/')` to go to the homepage after sign-up.
+- Keep imports minimal and null-safety compliant.
+- Do not refactor unrelated files; only add `login_screen.dart`, update `main.dart` routes, and modify `order_screen.dart` to add the navigation button.
 
-Description:
-Allow users to increase or decrease the quantity of a specific sandwich in their cart.
-
-Requirements:
-
-    Each cart item should display "+" and "–" buttons to adjust quantity.
-    Tapping "+" increases the quantity by 1.
-    Tapping "–" decreases the quantity by 1.
-    If the quantity is reduced below 1, the item should be removed from the cart.
-    The total price should update automatically.
-    The UI should update immediately to reflect changes.
-
-Edge Cases:
-
-    If the user tries to decrease the quantity when it is 1, the item should be removed.
-    Prevent negative quantities.
-
-2. Remove an Item from the Cart
-
-Description:
-Allow users to remove a sandwich from their cart entirely.
-
-Requirements:
-
-    Each cart item should have a "Remove" button (e.g., a trash icon).
-    Tapping "Remove" deletes the item from the cart.
-    The total price updates accordingly.
-    Show a snackbar or other feedback when an item is removed.
-
-3. Edit Item Details (Optional)
-
-Description:
-Allow users to edit details of a sandwich in their cart (e.g., change bread type, size, or sandwich type).
-
-Requirements:
-
-    Each cart item should have an "Edit" button.
-    Tapping "Edit" opens a dialog or navigates to a screen to modify sandwich options.
-    After saving, the cart updates the item (or replaces it if the combination is new).
-    The price and UI update accordingly.
-
-General UI and Behavior Requirements
-
-    All changes should be reflected immediately in the UI.
-    The cart's total price should always be accurate.
-    The cart should handle empty states gracefully (e.g., show a message if the cart is empty).
-    Provide user feedback (e.g., snackbar) for actions like removing or updating items.
-    The UI should prevent adding more than a maximum allowed quantity (see OrderScreen.maxQuantity).
-
-Please provide Flutter code and UI suggestions to implement these features, using the provided models and repository.
+If you need clarification about the project's main route name, look for how the app sets `home` or which route the app uses as its entry page. Adapt the homepage route used in navigation accordingly.
