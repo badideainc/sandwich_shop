@@ -119,23 +119,6 @@ class _CartScreenState extends State<CartScreen> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20),
-                      Builder(
-                        builder: (BuildContext context) {
-                          final bool cartHasItems =
-                              widget.cart.items.isNotEmpty;
-                          if (cartHasItems) {
-                            return StyledButton(
-                              onPressed: _navigateToCheckout,
-                              icon: Icons.payment,
-                              label: 'Checkout',
-                              backgroundColor: Colors.orange,
-                            );
-                          } else {
-                            return const SizedBox.shrink();
-                          }
-                        },
-                      ),
-                      const SizedBox(height: 20),
                       StyledButton(
                         onPressed: _goBack,
                         icon: Icons.arrow_back,
@@ -213,6 +196,22 @@ class _CartScreenState extends State<CartScreen> {
                   'Total: £${widget.cart.totalPrice.toStringAsFixed(2)}',
                   style: heading2,
                   textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Builder(
+                  builder: (BuildContext context) {
+                    final bool cartHasItems = widget.cart.items.isNotEmpty;
+                    if (cartHasItems) {
+                      return StyledButton(
+                        onPressed: _navigateToCheckout,
+                        icon: Icons.payment,
+                        label: 'Checkout',
+                        backgroundColor: Colors.orange,
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
                 ),
                 const SizedBox(height: 20),
                 StyledButton(
