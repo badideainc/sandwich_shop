@@ -31,7 +31,7 @@ class Header extends AppBar {
         Builder(builder: (context) {
           return IconButton(
             icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
             tooltip: 'Open navigation',
           );
         }),
