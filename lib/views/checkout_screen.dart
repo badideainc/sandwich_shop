@@ -64,7 +64,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Header.buildAppBar(context, title: 'Checkout'),
-      drawer: Header.buildDrawer(context),
+      endDrawer: Header.buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Consumer<Cart>(

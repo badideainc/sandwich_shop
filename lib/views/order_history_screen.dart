@@ -41,7 +41,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
     if (_isLoading) {
       return Scaffold(
         appBar: Header.buildAppBar(context),
-        drawer: Header.buildDrawer(context),
+        endDrawer: Header.buildDrawer(context),
         body: const Center(child: CircularProgressIndicator()),
       );
     }

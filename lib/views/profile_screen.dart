@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Header.buildAppBar(context),
-      drawer: Header.buildDrawer(context),
+      endDrawer: Header.buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
