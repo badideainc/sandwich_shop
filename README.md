@@ -39,7 +39,7 @@ You may want to change directory (`cd`) to the directory where you want to clone
 repository first.
 
 ```bash
-git clone --branch 7 https://github.com/manighahrmani/sandwich_shop
+git clone --branch 8 https://github.com/manighahrmani/sandwich_shop
 cd sandwich_shop
 code .
 ```
@@ -51,7 +51,7 @@ Remember to `cd` to the directory where you cloned the repository first.
 
 ```bash
 git fetch origin
-git checkout 7
+git checkout 8
 ```
 
 ## Run the app
