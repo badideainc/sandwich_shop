@@ -1,76 +1,105 @@
 # Sandwich Shop
 
-This is a simple Flutter app that allows users to order sandwiches.
-The app is built using Flutter and Dart, and it is designed primarily to be run in a web
-browser.
+A simple Flutter app that demonstrates a small ordering flow for a sandwich shop. The app includes a sandwich counter, cart, checkout, user profile, settings, and order history backed by a local database. It is intended for educational/demo purposes and includes unit and integration tests.
 
-## Install the essential tools
+**Status:** Prototype / Course project
 
-1. **Terminal**:
+**Platforms:** Android, iOS, Web, macOS, Windows, Linux (Flutter-supported targets)
 
-    - **macOS** – use the built-in Terminal app by pressing **⌘ + Space**, typing **Terminal**, and pressing **Return**.
-    - **Windows** – open the start menu using the **Windows** key. Then enter **cmd** to open the **Command Prompt**. Alternatively, you can use **Windows PowerShell** or **Windows Terminal**.
+---
 
-2. **Git** – verify that you have `git` installed by entering `git --version`, in the terminal.
-    If this is missing, download the installer from [Git's official site](https://git-scm.com/downloads?utm_source=chatgpt.com).
+**Table of contents**
 
-3. **Package managers**:
+- **Description**
+- **Features**
+- **Getting started**
+- **Running the app**
+- **Testing**
+- **Project structure**
+- **Contributing**
 
-    - **Homebrew** (macOS) – verify that you have `brew` installed with `brew --version`; if missing, follow the instructions on the [Homebrew installation page](https://brew.sh/).
-    - **Chocolatey** (Windows) – verify that you have `choco` installed with `choco --version`; if missing, follow the instructions on the [Chocolatey installation page](https://chocolatey.org/install).
+---
 
-4. **Flutter SDK** – verify that you have `flutter` installed and it is working with `flutter doctor`; if missing, install it using your package manager:
+## Description
 
-    - **macOS**: `brew install --cask flutter`
-    - **Windows**: `choco install flutter`
+`Sandwich Shop` is a lightweight Flutter application intended to illustrate a simple e-commerce-like flow: selecting sandwiches, adding them to a cart, checking out (which persists orders locally), and viewing order history. It uses `Provider` for simple state management and `sqflite` (or `sqflite_common_ffi` in tests) for local persistence.
 
-5. **Visual Studio Code** – verify that you have `code` installed with `code --version`; if missing, use your package manager to install it:
+## Features
 
-    - **macOS**: `brew install --cask visual-studio-code`
-    - **Windows**: `choco install vscode`
+- Choose sandwich types and sizes
+- Adjust quantity and add items to cart
+- View cart and perform a (simulated) checkout
+- Persist orders locally and view order history
+- Basic profile and settings screens (font size preference)
+- Right-side (end) drawer with navigation
+- Unit and integration tests included in the repository
 
-## Get the code
+## Getting started
 
-### If this is your first time working on this project
+Prerequisites:
 
-Enter the following commands in your terminal to clone the repository and
-open it in Visual Studio Code.
-You may want to change directory (`cd`) to the directory where you want to clone the
-repository first.
+- Flutter SDK (stable channel) installed and configured
+- A platform target (Android/iOS/macOS/Windows) or web to run the app
 
-```bash
-git clone --branch 8 https://github.com/manighahrmani/sandwich_shop
+Clone the repository and fetch dependencies:
+
+```powershell
+git clone <repo-url>
 cd sandwich_shop
-code .
-```
-
-### If you have already cloned the repository
-
-Enter the following commands in your terminal to switch to the correct branch.
-Remember to `cd` to the directory where you cloned the repository first.
-
-```bash
-git fetch origin
-git checkout 8
-```
-
-## Run the app
-
-Open the integrated terminal in Visual Studio Code by first opening the Command
-Palette with **⌘ + Shift + P** (macOS) or **Ctrl + Shift + P** (Windows) and
-typing **Terminal: Create New Terminal** then pressing **Enter**.
-
-In the terminal, run the following commands to install the dependencies and run
-the app in your web browser:
-
-```bash
 flutter pub get
+```
+
+If you're running tests that use the `sqflite` plugin on a desktop/test environment, the integration tests include `sqflite_common_ffi` initialization so tests can run without a platform channel-backed database.
+
+## Running the app
+
+Run on a connected device or emulator:
+
+```powershell
 flutter run
 ```
 
-## Get support
+To target web:
 
-Use [the dedicated Discord channel](https://discord.com/channels/760155974467059762/1370633732779933806)
-to ask your questions and get help from the community.
-Please provide as much context as possible, including the error messages you are seeing and
-screenshots (you can open Discord in your web browser).
+```powershell
+flutter run -d chrome
+```
+
+## Testing
+
+Unit and widget tests are in the `test/` directory. Run them with:
+
+```powershell
+flutter test
+```
+
+Integration tests are located in `intergration_test/` (note: the project keeps the intentionally-named folder `intergration_test` to match previous assignments). Run the single integration test file with:
+
+```powershell
+flutter test integration_test\app_test.dart
+```
+
+If you see plugin errors for `shared_preferences` in tests, the integration test file sets up `SharedPreferences.setMockInitialValues({})` and also initializes `sqflite_common_ffi` for database access in test environments.
+
+## Project structure (high level)
+
+- `lib/` – main app code
+	- `main.dart` – app entrypoint
+	- `models/` – data models (`sandwich.dart`, `cart.dart`, `saved_order.dart`)
+	- `views/` – screens (order screen, cart, checkout, order history, profile, settings)
+	- `widgets/` – reusable widgets (buttons, app bars)
+- `test/` – unit and widget tests
+- `intergration_test/` – end-to-end integration tests (kept as `intergration_test` per project history)
+
+## Contributing
+
+Feel free to open issues or PRs. Suggested improvements:
+
+- Add `Key` values to important widgets to make integration tests less brittle
+- Add a persistent backend or sample remote API for orders
+- Improve UI/UX and accessibility
+
+## License
+
+This repository is provided for educational purposes. Check the project root for any licensing files or contact the maintainer.
+
