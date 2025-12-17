@@ -91,13 +91,6 @@ If you see plugin errors for `shared_preferences` in tests, the integration test
 - `test/` – unit and widget tests
 - `intergration_test/` – end-to-end integration tests (kept as `intergration_test` per project history)
 
-## Contributing
-
-Feel free to open issues or PRs. Suggested improvements:
-
-- Add `Key` values to important widgets to make integration tests less brittle
-- Add a persistent backend or sample remote API for orders
-- Improve UI/UX and accessibility
 
 ## License
 
